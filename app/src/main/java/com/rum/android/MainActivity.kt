@@ -51,6 +51,8 @@ class MainActivity : AppCompatActivity() {
             .useSite(DatadogSite.US1)
             .build()
 
+        Datadog.initialize(this, configuration,TrackingConsent.GRANTED)
+
         val logsConfig = LogsConfiguration.Builder().build()
         Logs.enable(logsConfig)
 
@@ -61,8 +63,6 @@ class MainActivity : AppCompatActivity() {
             .setBundleWithTraceEnabled(true)
             .setName("<LOGGER_NAME>")
             .build()
-
-        Datadog.initialize(this, configuration,TrackingConsent.GRANTED)
 
         val traceConfig = TraceConfiguration.Builder().build()
         Trace.enable(traceConfig)

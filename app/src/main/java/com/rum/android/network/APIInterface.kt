@@ -1,6 +1,7 @@
 package com.rum.android.network
 
 import com.rum.android.models.Customer
+import com.rum.android.models.Product
 import retrofit2.Call
 import retrofit2.http.*
 
@@ -9,8 +10,8 @@ interface APIInterface {
     @GET("customer/all")
     fun getAllCustomers(): Call<List<Customer>>
 
-   // @GET("product/all")
-   // fun getAllProducts(): Call<List<Product>>
+    @GET("product/all")
+    fun getAllProducts(): Call<List<Product>>
 
     @POST("customer/add")
     fun addCustomer(@Body customer: Customer): Call<Customer>

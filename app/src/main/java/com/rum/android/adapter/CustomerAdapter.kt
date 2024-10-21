@@ -13,7 +13,7 @@ class CustomerAdapter(private val customerList: List<Customer>) :
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): ViewHolder {
         val view = LayoutInflater.from(parent.context)
-            .inflate(R.layout.item_card, parent, false)
+            .inflate(R.layout.customer_item, parent, false)
         return ViewHolder(view)
     }
 

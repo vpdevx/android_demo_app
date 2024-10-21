@@ -40,6 +40,8 @@ android {
 }
 
 dependencies {
+    implementation(libs.github.glide)
+    annotationProcessor(libs.glide.compiler)
     implementation("com.datadoghq:dd-sdk-android-logs:2.14.0")
     implementation("com.datadoghq:dd-sdk-android-rum:2.14.0")
     implementation("com.datadoghq:dd-sdk-android-okhttp:2.14.0")

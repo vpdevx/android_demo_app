@@ -34,14 +34,11 @@ class CustomersFragment : Fragment() {
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
 
-        // Configurar RecyclerView
         setupRecyclerView()
 
-        // Carregar dados dos customers
-      //  val tracer = GlobalTracer.get()
-       // val span = tracer.buildSpan("loadCustomers").start()
+
         loadCustomers()
-      //  span.finish()
+
     }
 
     private fun setupRecyclerView() {
@@ -49,9 +46,6 @@ class CustomersFragment : Fragment() {
     }
 
     private fun loadCustomers() {
-      //  val tracer = GlobalTracer.get()
-      //  val span = tracer.buildSpan("loadCustomers").start()
-
 
         val apiInterface = APIClient.getClient().create(APIInterface::class.java)
         val call = apiInterface.getAllCustomers()
@@ -65,10 +59,10 @@ class CustomersFragment : Fragment() {
             }
 
             override fun onFailure(call: Call<List<Customer>>, t: Throwable) {
-                // Tratar falha ao carregar os customers
+
             }
         })
-       // span.finish()
+
     }
 
     override fun onDestroyView() {
