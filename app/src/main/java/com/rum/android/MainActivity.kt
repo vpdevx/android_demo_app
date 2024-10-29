@@ -21,6 +21,7 @@ import com.datadog.android.privacy.TrackingConsent
 import com.datadog.android.rum.Rum
 import com.datadog.android.rum.RumConfiguration
 import com.datadog.android.rum.tracking.FragmentViewTrackingStrategy
+import com.datadog.android.rum.tracking.NavigationViewTrackingStrategy
 import com.datadog.android.trace.AndroidTracer
 import com.datadog.android.trace.Trace
 import com.datadog.android.trace.TraceConfiguration
@@ -37,10 +38,12 @@ class MainActivity : AppCompatActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
 
+        // inicio dd
         val clientToken = "pub27b608edd879434b2ebdcc150ff56432"
         val environmentName = "dev"
         val appVariantName = "rum-android"
         Datadog.setVerbosity(Log.INFO)
+
         val configuration = Configuration.Builder(
             clientToken = clientToken,
             env = environmentName,
@@ -52,17 +55,10 @@ class MainActivity : AppCompatActivity() {
             .build()
 
         Datadog.initialize(this, configuration,TrackingConsent.GRANTED)
+        Datadog.setVerbosity(Log.INFO)
 
         val logsConfig = LogsConfiguration.Builder().build()
         Logs.enable(logsConfig)
-
-        val logger = Logger.Builder()
-            .setNetworkInfoEnabled(true)
-            .setLogcatLogsEnabled(true)
-            .setRemoteSampleRate(100f)
-            .setBundleWithTraceEnabled(true)
-            .setName("<LOGGER_NAME>")
-            .build()
 
         val traceConfig = TraceConfiguration.Builder().build()
         Trace.enable(traceConfig)
@@ -71,24 +67,22 @@ class MainActivity : AppCompatActivity() {
         GlobalTracer.registerIfAbsent(tracer)
 
         val applicationId = "138b9ea7-418d-4d0a-a000-5bff08c03aab"
-
+        
         val rumConfiguration = RumConfiguration.Builder(applicationId)
             .trackUserInteractions()
+            .useViewTrackingStrategy(FragmentViewTrackingStrategy(true))
             .build()
 
         Rum.enable(rumConfiguration)
+        // fim dd
 
-        // Usando ViewBinding
         binding = ActivityMainBinding.inflate(layoutInflater)
         setContentView(binding.root)
 
-        // Configurando o BottomNavigationView
         val navView: BottomNavigationView = binding.navView
 
-        // Configurando o NavController com os fragmentos de navegação
         val navController = findNavController(R.id.nav_host_fragment_activity_main)
 
-        // Configurando o AppBar com os fragmentos de nível superior
         val appBarConfiguration = AppBarConfiguration(
             setOf(
                 R.id.navigation_home, R.id.navigation_product, R.id.navigation_customers

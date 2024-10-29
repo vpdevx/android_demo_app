@@ -38,10 +38,8 @@ class ProductFragment : Fragment() {
         setupRecyclerView()
 
 
-        val tracer = GlobalTracer.get()
-        val span = tracer.buildSpan("loadProduct").start()
         loadProduct()
-        span.finish()
+
     }
 
     private fun setupRecyclerView() {
